@@ -15,4 +15,5 @@ FROM node:12.2.0
 
 COPY --from=build /tmp/oc /usr/local/bin/
 COPY --from=build linux-amd64 /usr/local/bin
-
+RUN  wget https://download.docker.com/linux/debian/dists/stretch/pool/stable/amd64/docker-ce-cli_19.03.4~3-0~debian-stretch_amd64.deb \
+     && dpkg -i docker-ce-cli_19.03.4~3-0~debian-stretch_amd64.deb
