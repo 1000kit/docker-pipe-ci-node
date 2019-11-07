@@ -5,6 +5,9 @@ ENV OC_VERSION=v3.11.0 \
 
 RUN curl "https://get.helm.sh/helm-v3.0.0-rc.2-linux-amd64.tar.gz" -o "helm.tar.gz" \
     && tar xzvf helm.tar.gz \
+    && curl "https://get.helm.sh/helm-v3.0.0-beta.4-linux-amd64.zip" -o "helm3beta4.zip" \
+	&& ls -al . \
+    && unzip helm3beta4.zip -d /tmp/ \
     && curl -sLo /tmp/oc.tar.gz https://github.com/openshift/origin/releases/download/${OC_VERSION}/openshift-origin-client-tools-${OC_VERSION}-${OC_TAG_SHA}-linux-64bit.tar.gz \
     && tar xzvf /tmp/oc.tar.gz -C /tmp/ \
     && mv /tmp/openshift-origin-client-tools-${OC_VERSION}-${OC_TAG_SHA}-linux-64bit/oc /tmp/ \
@@ -15,5 +18,6 @@ FROM node:12.2.0
 
 COPY --from=build /tmp/oc /usr/local/bin/
 COPY --from=build linux-amd64 /usr/local/bin
+COPY --from=build /tmp/linux-amd64/helm /usr/local/bin/helm3beta4
 RUN  wget https://download.docker.com/linux/debian/dists/stretch/pool/stable/amd64/docker-ce-cli_19.03.4~3-0~debian-stretch_amd64.deb \
      && dpkg -i docker-ce-cli_19.03.4~3-0~debian-stretch_amd64.deb
