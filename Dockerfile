@@ -6,8 +6,10 @@ ENV OC_VERSION=v3.11.0 \
 RUN curl "https://get.helm.sh/helm-v3.0.0-rc.2-linux-amd64.tar.gz" -o "helm.tar.gz" \
     && tar xzvf helm.tar.gz \
     && curl "https://get.helm.sh/helm-v3.0.0-beta.4-linux-amd64.zip" -o "helm3beta4.zip" \
-    && curl "https://github.com/mikefarah/yq/releases/download/3.2.1/yq_linux_amd64" -o /tmp/yq \
-    && curl "https://github.com/argoproj/argo-cd/releases/download/v1.4.2/argocd-linux-amd64" -o /tmp/argocd \
+    && wget "https://github.com/mikefarah/yq/releases/download/3.2.1/yq_linux_amd64" -O /tmp/yq \
+    && chmod +x /tmp/yq \
+    && wget "https://github.com/argoproj/argo-cd/releases/download/v1.4.2/argocd-linux-amd64" -O /tmp/argocd \
+    && chmod +x /tmp/argocd \
     && unzip helm3beta4.zip -d /tmp/ \
     && curl -sLo /tmp/oc.tar.gz https://github.com/openshift/origin/releases/download/${OC_VERSION}/openshift-origin-client-tools-${OC_VERSION}-${OC_TAG_SHA}-linux-64bit.tar.gz \
     && tar xzvf /tmp/oc.tar.gz -C /tmp/ \
